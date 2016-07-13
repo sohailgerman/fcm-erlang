@@ -1,19 +1,19 @@
-gcm-erlang
+fcm-erlang
 =======
 
-[![Build Status](https://api.travis-ci.org/pdincau/gcm-erlang.png)](https://travis-ci.org/pdincau/gcm-erlang)
+[![Build Status](https://api.travis-ci.org/pdincau/gcm-erlang.png)]
 
-This software provides an Erlang client for [`Google Cloud Messaging`](http://developer.android.com/google/gcm/index.html "Google Cloud Messaging for Android").
+This software provides an Erlang client for [`Google Cloud Messaging`](https://firebase.google.com/docs/ "Firebase Cloud Messaging for Android").
 
 
-### What you can do with gcm-erlang:
+### What you can do with fcm-erlang:
 
-With `gcm-erlang` you can:
+With `fcm-erlang` you can:
 
-1. start several `gen_servers` representing different `GCM applications` defined by different `GCM API keys`
-2. send notification messages to Android mobile devices registered to your application and registered to `GCM` with a `registration id`
+1. start several `gen_servers` representing different `FCM applications` defined by different `FCM API keys`
+2. send notification messages to Android mobile devices registered to your application and registered to `FCM` with a `registration id`
 
-So far `gcm-erlang` provides only support for JSON messages since GCM does not allow to send multicast messages using plain text.
+So far `fcm-erlang` provides only support for JSON messages since FCM does not allow to send multicast messages using plain text.
 
 ### How to compile:
 
@@ -23,19 +23,19 @@ The first thing you have to do is to compile all the Erlang files using `rebar`.
 
 ### How to use with rebar:
 
-You can use gcm_app as a dependency in your rebar.config:
+You can use fcm_app as a dependency in your rebar.config:
 
     {deps , [
-        {gcm, ".*", {git, "https://github.com/pdincau/gcm-erlang.git", {tag, "1.0.1"}}}
+        {fcm, ".*", {git, "https://github.com/sohailgerman/fcm-erlang.git"}}
     ]}.
 
 ###How to run tests:
 
     ./rebar compile && ./rebar skip_deps=true eunit && ./run-dialyzer.sh
 
-### How to run the application gcm-erlang:
+### How to run the application fcm-erlang:
 
-Once all the Erlang files are compiled you can start the application `gcm-erlang`. This application depends on other applications  so it is mandatory to  start them as well.
+Once all the Erlang files are compiled you can start the application `fcm-erlang`. This application depends on other applications  so it is mandatory to  start them as well.
 
     $ erl -pa deps/*/ebin -pa ebin
     1> application:start(inets).
@@ -44,37 +44,37 @@ Once all the Erlang files are compiled you can start the application `gcm-erlang
     ok
     3> ssl:start().
     ok
-    4> application:start(gcm).
+    4> application:start(fcm).
     ok
 
-### How to start/stop different gen_servers under application gcm-erlang (one for each GCM application):
+### How to start/stop different gen_servers under application fcm-erlang (one for each FCM application):
 
-While `gcm-erlang` is running you can start several supervised gen_servers, one for each GCM application. Every gen_server is defined by an atom used internally for registration and by a `GCM API key`.
+While `fcm-erlang` is running you can start several supervised gen_servers, one for each FCM application. Every gen_server is defined by an atom used internally for registration and by a `FCM API key`.
 
-    3> gcm:start(foo, "myapikey").
+    3> fcm:start(foo, "myapikey").
     {ok,<0.60.0>}
-    4> gcm:start(bar, "myotherapikey").
+    4> fcm:start(bar, "myotherapikey").
     {ok,<0.65.0>}
-    5> gcm:start(baz, "mylastapikey").
+    5> fcm:start(baz, "mylastapikey").
     {ok,<0.79.0>}
 
-You can stop a `gen_server` representing a GCM Application using:
+You can stop a `gen_server` representing a FCM Application using:
 
-    6> gcm:stop(foo).
+    6> fcm:stop(foo).
 
-### How to send a GCM message using from a specific GCM application:
+### How to send a FCM message using from a specific FCM application:
 
-At any time you can send a GCM message to one or more mobile devices by calling:
+At any time you can send a FCM message to one or more mobile devices by calling:
 
-    7> gcm:push(RegisteredName, RegIds, Message).
+    7> fcm:push(RegisteredName, RegIds, Message).
 
 or by calling:
 
-    7> gcm:sync_push(RegisteredName, RegIds, Message).
+    7> fcm:sync_push(RegisteredName, RegIds, Message).
 
 Where `RegistereName` is the atom used during registration, `RegIds` is a list (max 1000 elements) of Registration Ids specified as Erlang binaries (e.g., `<<"APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx...">>`) and `Message` is an Erlang term representing the data you want to send to the device.
 
-The JSON message is built using `jsx` in the module `gcm.erl` and in the end will have the following form:
+The JSON message is built using `jsx` in the module `fcm.erl` and in the end will have the following form:
 
     {
       "registration_ids" : ["APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx..."],
@@ -87,20 +87,20 @@ The JSON message is built using `jsx` in the module `gcm.erl` and in the end wil
 
 You can send this message using:
 
-    8> gcm:push(RegisteredName, RegIds, [{<<"data">>, [
+    8> fcm:push(RegisteredName, RegIds, [{<<"data">>, [
     8>     {<<"message">>, <<"a message">>}
     8> ]}, {<<"time_to_live">>,3600}, {<<"collapse_key">>,<<"your_update">>}]).
 
 or simply:
 
-    8> gcm:push(RegisteredName, RegIds, [{<<"data">>, [
+    8> fcm:push(RegisteredName, RegIds, [{<<"data">>, [
     8>     {<<"message">>, <<"a message">>}
     8> ]}]).
 
-`gcm-erlang` will push the message for you to `Google Cloud Messaging` servers and will parse the JSON provided as result.
+`fcm-erlang` will push the message for you to `Firebase Cloud Messaging` servers and will parse the JSON provided as result.
 
-In order to understand errors see: [Interpreting an error response](http://developer.android.com/google/gcm/gcm.html#response).
+In order to understand errors see: [Interpreting an error response](https://firebase.google.com/docs/).
 
 ### Note:
 
-Some of the concepts I used for building this Erlang application are based on this [`blog post`](http://tiliman.wordpress.com/2013/01/02/google-cloud-messaging-with-erlang/) and on this [`Erlang application for APN`](https://github.com/extend/ex_apns).
+Some of the concepts I used for building this Erlang application are based on this [`Erlang application for APN`](https://github.com/extend/ex_apns).
