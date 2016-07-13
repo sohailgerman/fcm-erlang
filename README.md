@@ -3,7 +3,7 @@ fcm-erlang
 
 [![Build Status](https://api.travis-ci.org/pdincau/gcm-erlang.png)]
 
-This software provides an Erlang client for [`Google Cloud Messaging`](https://firebase.google.com/docs/ "Firebase Cloud Messaging for Android").
+This software provides an Erlang client for [`Firebase Cloud Messaging`](https://firebase.google.com/docs/ "Firebase Cloud Messaging for Android").
 
 
 ### What you can do with fcm-erlang:
